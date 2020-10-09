@@ -40,6 +40,15 @@ export default ({ event }) => {
         return null
     }
 
+    const onProjectSelected = useCallback(
+        project => {
+            dispatch(push(`/projects/${event.slug}/view/${project._id}`))
+        },
+        [dispatch, event.slug],
+    )
+
+    // dispatch(push(`${match.url}/view/${project._id}`)) Old dispatch if needed
+
     return (
         <PageWrapper
             loading={loading || !data}
@@ -53,9 +62,7 @@ export default ({ event }) => {
                     <ProjectsGrid
                         projects={data.projects}
                         event={data.event}
-                        onSelect={project =>
-                            dispatch(push(`${match.url}/view/${project._id}`))
-                        }
+                        onSelect={onProjectSelected}
                     />
                     <Box height={200} />
                 </CenteredContainer>
